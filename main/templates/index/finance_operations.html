@@ -1,0 +1,115 @@
+<div class="container bg-light p-3 rounded mt-2">
+  <div class="row">
+    <h4 class="mb-3">Блок операций</h4>
+    <div class="col">
+
+      <div class="container-fluid">
+        <h2 class="h3 mb-3 fw-normal">Последние операции:</h2>
+        <div class="table-responsive small">
+          <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+              <th scope="col">Дата операции</th>
+              <th scope="col">Тип операции</th>
+              <th scope="col">Наименование операции</th>
+              <th scope="col">Сумма операции</th>
+              <th scope="col">Получатель</th>
+              <th scope="col">Аккаунт операции</th>
+              <th scope="col">Удалить</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for operation in all_user_operations %}
+            <tr>
+              <td>{{ operation.date }}</td>
+              <td>{{ operation.type }}</td>
+              <td>{{ operation.name }}</td>
+              <td>{{ operation.value }}</td>
+              <td>{{ operation.name }}</td>
+              <td>{{ operation.name }}</td>
+              <td>
+                <div class="container-fluid"> 
+                  <a href="{% url 'operation_delete' operation.pk %}">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-trash3"
+                         viewBox="0 0 16 16">
+                      <path
+                        d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                    </svg>
+                </div>
+                </a>
+
+              </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+    <div class="col">
+      <div class="container-fluid">
+        <form action="operations/create" method="post">
+          {% csrf_token %}
+          <h2 class="h3 mb-3 fw-normal">Добавить расход:</h2>
+          <div class="form-floating">
+            <div class="col sm-6">
+              <label for="date">Дата операции</label>
+              <input type="text" class="form-control mb-2" id="date" name="date" placeholder="25.03.2025"
+                     required>
+            </div>
+            <div class="col sm-6">
+              <label for="account">Аккаунт операции</label>
+              <select class="form-select" name="account" id="account">
+                <option selected>Не выбрано</option>
+                {% for account in all_user_accounts %}
+                <option value="{{ account.pk }}">{{ account.name }}</option>
+                {% endfor %}
+              </select>
+              <!--              <input type="text" class="form-control mb-2" id="account" name="account" placeholder="Выпадающий список"-->
+              <!--                     required>-->
+            </div>
+            <div class="col sm-6">
+              <label for="name">Наименование</label>
+              <input type="text" class="form-control mb-2" id="name" name="name" placeholder="Статья расхода"
+                     required>
+            </div>
+            <div class="col sm-6">
+              <label for="value">Сумма</label>
+              <input type="text" class="form-control mb-2" id="value" name="value" placeholder="30 000"
+                     required>
+            </div>
+            <div class="col sm-6">
+              <label for="odbiorca">Получатель</label>
+              <input type="text" class="form-control mb-2" id="odbiorca" name="odbiorca"
+                     placeholder="Кому передано..."
+                     required>
+            </div>
+          </div>
+          <div>
+          </div>
+          <button class="btn btn-danger w-100 py-2" type="submit">Сохранить</button>
+          <p class="mt-5 mb-3 text-body-secondary">© 2017–2024</p>
+        </form>
+      </div>
+      <div class="container-fluid">
+        <form action="accounts/create" method="post">
+          {% csrf_token %}
+          <h2 class="h3 mb-3 fw-normal">Добавить доход:</h2>
+          <div class="form-floating">
+            <input type="text" class="form-control mb-2" id="name" name="name" placeholder="ООО 'Фирма', ИП Иванов П.И."
+                   required>
+            <label for="name">Наименование</label>
+          </div>
+          <div>
+          </div>
+          <button class="btn btn-success w-100 py-2" type="submit">Сохранить</button>
+          <p class="mt-5 mb-3 text-body-secondary">© 2017–2024</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,52 @@
+<div class="container bg-light p-3 rounded mt-2">
+  <div class="row">
+    <h4 class="mb-3">Блок счетов</h4>
+    <div class="col">
+
+      <div class="container-fluid">
+        <h2 class="h3 mb-3 fw-normal">Все счета:</h2>
+        <div class="table-responsive small">
+          <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+              <th scope="col">№</th>
+              <th scope="col">Наименование счета</th>
+              <th scope="col">Стартовый баланс</th>
+              <th scope="col">Дата создания</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for account in all_user_accounts %}
+            <tr>
+              <td>{{ account.pk }}</td>
+              <td>{{ account }}</td>
+              <td>{{ account.initial_balance }}</td>
+              <td>{{ account.create_date }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+    <div class="col">
+      <div class="container-fluid">
+        <form action="accounts/create" method="post">
+          {% csrf_token %}
+          <h2 class="h3 mb-3 fw-normal">Добавить счет:</h2>
+          <div class="form-floating">
+            <input type="text" class="form-control mb-2" id="name" name="name" placeholder="ООО 'Фирма', ИП Иванов П.И."
+                   required>
+            <label for="name">Наименование</label>
+          </div>
+          <div>
+          </div>
+          <button class="btn btn-primary w-100 py-2" type="submit">Сохранить</button>
+          <p class="mt-5 mb-3 text-body-secondary">© 2017–2024</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
